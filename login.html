@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Three Digit Guessing Game</title>
+  <meta name="description" content="Login to play the Three Digit Number Guessing Game." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="auth-body" data-page="login">
+
+  <div class="auth-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="auth-wrapper">
+    <div class="auth-panel-left">
+      <div class="auth-brand">
+        <span class="auth-brand-icon">123</span>
+        <h1 class="auth-brand-title">GuessIt</h1>
+      </div>
+      <p class="auth-brand-desc">
+        Challenge yourself to crack a hidden 3-digit number.<br>
+        Use logic, narrow it down, and beat the clock.
+      </p>
+      <div class="auth-features">
+        <div class="auth-feature">
+          <span class="auth-feature-icon">10</span>
+          <span>10 attempts to find the number</span>
+        </div>
+        <div class="auth-feature">
+          <span class="auth-feature-icon">Top</span>
+          <span>Track your scores on the leaderboard</span>
+        </div>
+        <div class="auth-feature">
+          <span class="auth-feature-icon">Win</span>
+          <span>Compete with other players</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-panel-right">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h2 class="auth-title">Welcome Back</h2>
+          <p class="auth-subtitle">Login to continue playing</p>
+        </div>
+
+        <form id="login-form" data-static-form data-redirect="index.html" novalidate>
+          <div class="field-group">
+            <label class="field-label" for="username">Username</label>
+            <div class="field-input-wrap">
+              <span class="field-icon">User</span>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                class="field-input"
+                placeholder="Enter your username"
+                autocomplete="username"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="password">Password</label>
+            <div class="field-input-wrap">
+              <span class="field-icon">Key</span>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                class="field-input"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              />
+              <button type="button" class="toggle-pw" onclick="togglePassword('password', this)" title="Show/hide password">Show</button>
+            </div>
+          </div>
+
+          <div class="field-help">
+            <a href="forgot.html" class="auth-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="login-btn">Login</button>
+        </form>
+
+        <hr class="divider" />
+
+        <p class="auth-switch">
+          Do not have an account?
+          <a href="register.html" class="auth-link">Register here -&gt;</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

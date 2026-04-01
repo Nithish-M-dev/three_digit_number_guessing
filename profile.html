@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile - GuessIt</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="profile">
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">GuessIt</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="game.html" class="nav-link nav-play">Play Game</a>
+      <a href="training.html" class="nav-link">Training</a>
+      <a href="practice.html" class="nav-link">Practice</a>
+      <a href="scoreboard.html" class="nav-link">Scoreboard</a>
+      <a href="profile.html" class="nav-link nav-active">Profile</a>
+      <div class="nav-user">
+        <span class="nav-user-badge" id="nav-user-badge">Player</span>
+        <a href="login.html" class="btn btn-logout">Sign In</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-wrapper">
+    <div class="card card-wide profile-card">
+
+      <div class="scoreboard-header profile-header">
+        <div>
+          <div class="icon-badge text-badge">Me</div>
+          <h1 class="page-title title-compact">Profile</h1>
+          <p class="page-subtitle subtitle-tight">Your play stats</p>
+        </div>
+        <span class="total-badge" id="profile-total-badge">0 games</span>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Games Played</div>
+          <div class="stat-value" id="profile-total">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Wins</div>
+          <div class="stat-value wins-value" id="profile-wins">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Losses</div>
+          <div class="stat-value losses-value" id="profile-losses">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Players</div>
+          <div class="stat-value" id="profile-players-count">1</div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <h3 class="page-subtitle subtitle-tight">Players</h3>
+      <div class="player-list" id="profile-players"></div>
+
+      <hr class="divider" />
+
+      <h3 class="page-subtitle subtitle-tight">Choose Your Avatar</h3>
+      <form class="avatar-grid" id="avatar-form">
+        <div id="avatar-grid"></div>
+        <div class="avatar-form-actions">
+          <button type="submit" class="btn btn-primary full-width">Save Avatar</button>
+        </div>
+      </form>
+
+      <div class="gap-2 section-gap-top">
+        <a href="game.html" class="btn btn-primary">Play Again</a>
+        <a href="scoreboard.html" class="btn btn-outline">View Scoreboard</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

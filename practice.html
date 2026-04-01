@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice Mode - Three Digit Guessing Game</title>
+  <meta name="description" content="Practice guessing 3-digit numbers with helpful hints and no pressure." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="practice">
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">GuessIt</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="game.html" class="nav-link nav-play">Play Game</a>
+      <a href="training.html" class="nav-link">Training</a>
+      <a href="practice.html" class="nav-link nav-active">Practice</a>
+      <a href="scoreboard.html" class="nav-link">Scoreboard</a>
+      <a href="profile.html" class="nav-link">Profile</a>
+      <div class="nav-user">
+        <span class="nav-user-badge" id="nav-user-badge">Player</span>
+        <a href="login.html" class="btn btn-logout">Sign In</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-wrapper page-top">
+    <div class="card card-medium practice-card">
+      <div class="stack-header">
+        <div class="icon-badge text-badge">Practice</div>
+        <div>
+          <h1 class="page-title">Practice Mode</h1>
+          <p class="page-subtitle">Hints on every guess. No pressure. No scores saved.</p>
+        </div>
+      </div>
+
+      <div class="instructions-box">
+        <h3>What You Get</h3>
+        <div class="instruction-step">
+          <span class="step-num">1</span>
+          <span>Every guess shows how far away you are from the answer.</span>
+        </div>
+        <div class="instruction-step">
+          <span class="step-num">2</span>
+          <span>Try different strategies and learn faster without penalties.</span>
+        </div>
+        <div class="instruction-step">
+          <span class="step-num">3</span>
+          <span>Practice mode does not affect the scoreboard.</span>
+        </div>
+      </div>
+
+      <div class="gap-2 section-gap-mid">
+        <a href="game.html?mode=practice" class="btn btn-primary">Start Practice</a>
+        <a href="training.html" class="btn btn-outline">Read Training Guide</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scoreboard - Three Digit Guessing Game</title>
+  <meta name="description" content="View all past scores for the Three Digit Number Guessing Game." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="scoreboard">
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">GuessIt</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="game.html" class="nav-link nav-play">Play Game</a>
+      <a href="training.html" class="nav-link">Training</a>
+      <a href="practice.html" class="nav-link">Practice</a>
+      <a href="scoreboard.html" class="nav-link nav-active">Scoreboard</a>
+      <a href="profile.html" class="nav-link">Profile</a>
+      <div class="nav-user">
+        <span class="nav-user-badge" id="nav-user-badge">Player</span>
+        <a href="login.html" class="btn btn-logout">Sign In</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-wrapper">
+    <div class="card card-wide">
+
+      <div class="scoreboard-header">
+        <div>
+          <div class="icon-badge text-badge">Top</div>
+          <h1 class="page-title title-compact">Scoreboard</h1>
+          <p class="page-subtitle subtitle-tight">All-time results</p>
+        </div>
+        <span class="total-badge" id="score-total">0 games</span>
+      </div>
+
+      <div class="score-table-wrap" id="score-table-wrap" hidden>
+        <table class="score-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Attempts</th>
+              <th>Result</th>
+              <th>Date &amp; Time</th>
+            </tr>
+          </thead>
+          <tbody id="score-table-body"></tbody>
+        </table>
+      </div>
+
+      <div class="empty-state" id="score-empty">
+        <div class="empty-state-icon">No Data</div>
+        <p class="bold-muted">No scores yet.</p>
+        <p class="muted-note">Play your first game and save your score.</p>
+      </div>
+
+      <div class="gap-2">
+        <a href="game.html" class="btn btn-primary">Play a New Game</a>
+        <a href="index.html" class="btn btn-outline">Back to Home</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
