@@ -12,6 +12,11 @@ const COOKIE_KEYS = {
   session: 'guessit_session'
 };
 
+const API_ENDPOINTS = {
+  participants: '/api/participants',
+  scores: '/api/scores'
+};
+
 function loadJSON(key, fallback) {
   try {
     const raw = localStorage.getItem(key);
@@ -23,6 +28,58 @@ function loadJSON(key, fallback) {
 
 function saveJSON(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
+}
+
+async function requestJSON(url, options) {
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error('Request failed with status ' + response.status);
+  }
+  return response.json();
+}
+
+async function fetchParticipants() {
+  try {
+    const data = await requestJSON(API_ENDPOINTS.participants);
+    return Array.isArray(data.participants) ? data.participants : [];
+  } catch (err) {
+    const users = loadJSON(STORAGE_KEYS.users, []);
+    return users.map((username) => ({ username, avatar: 'A' }));
+  }
+}
+
+async function fetchScoresFromApi() {
+  try {
+    const data = await requestJSON(API_ENDPOINTS.scores);
+    return Array.isArray(data.scores) ? data.scores : [];
+  } catch (err) {
+    return getScores();
+  }
+}
+
+async function syncParticipant(username, avatar, password) {
+  if (!username) return;
+  try {
+    await requestJSON(API_ENDPOINTS.participants, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, avatar, password })
+    });
+  } catch (err) {
+    // Local storage remains available if the API is offline.
+  }
+}
+
+async function saveScoreToDatabase(entry) {
+  try {
+    await requestJSON(API_ENDPOINTS.scores, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry)
+    });
+  } catch (err) {
+    // Keep local storage as a fallback when the API is unavailable.
+  }
 }
 
 function normalizeUsername(username) {
@@ -142,6 +199,7 @@ async function createAccount(username, password) {
   };
   saveAccounts(accounts);
   ensureUserInList(safeName);
+  await syncParticipant(safeName, 'A', passwordHash);
 }
 
 async function validateCredentials(username, password) {
@@ -171,6 +229,7 @@ function updateAccountAvatar(username, avatar) {
   if (!accounts[key]) return;
   accounts[key].avatar = avatar;
   saveAccounts(accounts);
+  syncParticipant(accounts[key].username, avatar, accounts[key].passwordHash);
 }
 
 function setButtonLoading(button, isLoading, loadingText) {
@@ -239,6 +298,7 @@ function ensureUserInList(username) {
     users.push(username);
     saveJSON(STORAGE_KEYS.users, users);
   }
+  syncParticipant(username, getUser().avatar);
 }
 
 function getScores() {
@@ -249,6 +309,7 @@ function addScore(entry) {
   const scores = getScores();
   scores.push(entry);
   saveJSON(STORAGE_KEYS.scores, scores);
+  saveScoreToDatabase(entry);
 }
 
 function formatNumber(num) {
@@ -633,18 +694,41 @@ function initGame() {
   resetGame();
 }
 
-function initScoreboard() {
+function renderParticipantList(target, participants, currentUsername) {
+  if (!target) return;
+  target.innerHTML = '';
+  participants.forEach((participant) => {
+    const name = typeof participant === 'string' ? participant : participant.username;
+    const span = document.createElement('span');
+    span.className = 'player-pill' + (name === currentUsername ? ' you' : '');
+    span.textContent = name;
+    target.appendChild(span);
+  });
+}
+
+async function initScoreboard() {
   const tableBody = document.getElementById('score-table-body');
-  if (!tableBody) return;
-  const scores = getScores();
+  const participantList = document.getElementById('score-participants');
+  if (!tableBody && !participantList) return;
   const user = getUser();
+  const scores = await fetchScoresFromApi();
+  const participants = await fetchParticipants();
   const totalBadge = document.getElementById('score-total');
   const tableWrap = document.getElementById('score-table-wrap');
   const emptyState = document.getElementById('score-empty');
+  const participantCount = document.getElementById('score-participant-count');
+
+  if (participantCount) {
+    participantCount.textContent = participants.length + (participants.length === 1 ? ' player' : ' players');
+  }
+
+  renderParticipantList(participantList, participants, user.username);
 
   if (totalBadge) {
     totalBadge.textContent = scores.length + (scores.length === 1 ? ' game' : ' games');
   }
+
+  if (!tableBody) return;
 
   if (scores.length === 0) {
     if (tableWrap) tableWrap.hidden = true;
@@ -675,12 +759,12 @@ function initScoreboard() {
   });
 }
 
-function initStats() {
+async function initStats() {
   const totalEl = document.getElementById('stat-total');
   const winsEl = document.getElementById('stat-wins');
   const lossesEl = document.getElementById('stat-losses');
   const user = getUser();
-  const scores = getScores();
+  const scores = await fetchScoresFromApi();
   const userScores = scores.filter((s) => s.username === user.username);
   const wins = userScores.filter((s) => s.result === 'win').length;
   const losses = userScores.filter((s) => s.result === 'lose').length;
@@ -699,20 +783,12 @@ function initStats() {
   if (profileWins) profileWins.textContent = wins;
   if (profileLosses) profileLosses.textContent = losses;
 
-  const users = loadJSON(STORAGE_KEYS.users, [user.username]);
-  if (profilePlayers) profilePlayers.textContent = users.length;
+  const participants = await fetchParticipants();
+  if (profilePlayers) profilePlayers.textContent = participants.length;
   if (profileBadge) profileBadge.textContent = userScores.length + (userScores.length === 1 ? ' game' : ' games');
 
   const playersList = document.getElementById('profile-players');
-  if (playersList) {
-    playersList.innerHTML = '';
-    users.forEach((name) => {
-      const span = document.createElement('span');
-      span.className = 'player-pill' + (name === user.username ? ' you' : '');
-      span.textContent = name;
-      playersList.appendChild(span);
-    });
-  }
+  renderParticipantList(playersList, participants, user.username);
 
   const homeName = document.getElementById('home-username');
   if (homeName) homeName.textContent = user.username;
@@ -801,15 +877,15 @@ function launchConfetti() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   if (!enforceRouteProtection()) return;
   preventBackNavigationOnProtectedPages();
   updateNavUser();
   initAuthForms();
   initPasswordStrength();
   initGame();
-  initScoreboard();
-  initStats();
+  await initScoreboard();
+  await initStats();
   initAvatarPicker();
   initButtonRipple();
 });
