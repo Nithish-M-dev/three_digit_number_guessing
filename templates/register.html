@@ -1,0 +1,30 @@
+﻿{% extends 'base.html' %}
+{% block title %}Register | GuessIt{% endblock %}
+{% block body_page %}register{% endblock %}
+{% block shell_class %}auth-shell{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-copy">
+    <p class="eyebrow">Create Account</p>
+    <h1>Start tracking every guess.</h1>
+    <p>Choose an avatar and create a server-backed account. Existing legacy passwords migrate to bcrypt after the next valid login.</p>
+  </div>
+  <form class="auth-card" id="register-form">
+    <h2>Register</h2>
+    <label>Username<input type="text" name="username" required minlength="3" /></label>
+    <label>Password
+      <div class="password-field">
+        <input type="password" name="password" required minlength="8" />
+        <button class="password-toggle" type="button" data-password-toggle>Show</button>
+      </div>
+    </label>
+    <label>Avatar
+      <select name="avatar">
+        {% for avatar in avatar_options %}<option value="{{ avatar }}">{{ avatar }}</option>{% endfor %}
+      </select>
+    </label>
+    <button class="button primary full" type="submit">Create Account</button>
+    <p class="muted-links"><a href="{{ url_for('login_page') }}">Already have an account?</a></p>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+﻿{% extends 'base.html' %}
+{% block title %}Practice | GuessIt{% endblock %}
+{% block body_page %}practice{% endblock %}
+{% block content %}
+<section class="grid single">
+  <article class="panel">
+    <div class="panel-head"><span class="eyebrow">Practice Mode</span><h1>Rehearse with zero leaderboard pressure.</h1></div>
+    <p class="hero-copy">Practice launches the same engine as the main game but keeps the run out of the ranked scoreboard. It is the fastest way to learn the exact/misplaced hint model.</p>
+    <div class="mode-grid">
+      <button class="mode-card" data-start-game="practice" data-difficulty="easy"><strong>Warmup</strong><span>Longer attempt window for pattern learning</span></button>
+      <button class="mode-card" data-start-game="practice" data-difficulty="medium"><strong>Simulation</strong><span>Closer to real match conditions</span></button>
+      <a class="mode-card link-card" href="{{ url_for('training_page') }}"><strong>Read Training</strong><span>Refresh the solving method before you jump in</span></a>
+    </div>
+  </article>
+</section>
+{% endblock %}

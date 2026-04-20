@@ -1,0 +1,57 @@
+﻿{% extends 'base.html' %}
+{% block title %}Game | GuessIt{% endblock %}
+{% block body_page %}game{% endblock %}
+{% block content %}
+<section class="game-grid">
+  <article class="panel game-main">
+    <div class="panel-head split">
+      <div>
+        <p class="eyebrow">Live Run</p>
+        <h1>Find the hidden three-digit code.</h1>
+      </div>
+      <div class="inline-controls">
+        <select id="difficulty-select">
+          {% for key, config in difficulty_options.items() %}<option value="{{ key }}">{{ config.label }}</option>{% endfor %}
+        </select>
+        <select id="mode-select">
+          <option value="classic">Classic</option>
+          <option value="timer">Timer Rush</option>
+          <option value="daily">Daily Challenge</option>
+          <option value="practice">Practice</option>
+        </select>
+        <button class="button secondary" id="start-game-button" type="button">Start Run</button>
+      </div>
+    </div>
+    <div class="stats-grid game-stats">
+      <div class="stat-card"><span>Attempts Left</span><strong id="attempts-left">0</strong></div>
+      <div class="stat-card"><span>Difficulty</span><strong id="game-difficulty">-</strong></div>
+      <div class="stat-card"><span>Mode</span><strong id="game-mode">-</strong></div>
+      <div class="stat-card"><span>Timer</span><strong id="game-timer">--</strong></div>
+    </div>
+    <div class="meter"><div class="meter-fill" id="meter-fill"></div></div>
+    <form id="guess-form" class="guess-form">
+      <input id="guess-input" name="guess" inputmode="numeric" maxlength="3" placeholder="013" required />
+      <button class="button primary" type="submit">Submit Guess</button>
+      <button class="button secondary" id="replay-button" type="button">Replay</button>
+    </form>
+    <div class="feedback-card" id="feedback-card">
+      <h3>AI hint engine</h3>
+      <p id="feedback-text">Start a game to receive positional hints, direction cues, and endgame advice.</p>
+    </div>
+    <div class="history-list" id="history-list"></div>
+  </article>
+  <aside class="panel side-panel">
+    <div class="panel-head"><span class="eyebrow">Systems</span><h3>How hints work</h3></div>
+    <ul class="feature-list dense">
+      <li><strong>Exact:</strong> right digit, right slot</li>
+      <li><strong>Misplaced:</strong> right digit, wrong slot</li>
+      <li><strong>Direction:</strong> whether the number is higher or lower</li>
+      <li><strong>AI hint:</strong> a rule-based inference layer for next-step guidance</li>
+    </ul>
+    <div class="daily-card">
+      <p class="eyebrow">Daily Challenge</p>
+      <p id="daily-summary">Loading today's preview...</p>
+    </div>
+  </aside>
+</section>
+{% endblock %}

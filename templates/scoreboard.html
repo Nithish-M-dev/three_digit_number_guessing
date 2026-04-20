@@ -1,0 +1,26 @@
+﻿{% extends 'base.html' %}
+{% block title %}Leaderboard | GuessIt{% endblock %}
+{% block body_page %}scoreboard{% endblock %}
+{% block content %}
+<section class="grid two-up leaderboard-layout">
+  <article class="panel">
+    <div class="panel-head split">
+      <div><span class="eyebrow">Leaderboard</span><h1>Top runs</h1></div>
+      <select id="scoreboard-difficulty-filter">
+        <option value="">All difficulties</option>
+        {% for key, config in difficulty_options.items() %}<option value="{{ key }}">{{ config.label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Player</th><th>Mode</th><th>Attempts</th><th>Time</th><th>Score</th></tr></thead>
+        <tbody id="leaderboard-body"></tbody>
+      </table>
+    </div>
+  </article>
+  <article class="panel">
+    <div class="panel-head"><span class="eyebrow">Participants</span><h3>Active roster</h3></div>
+    <div class="player-cloud" id="participant-list"></div>
+  </article>
+</section>
+{% endblock %}

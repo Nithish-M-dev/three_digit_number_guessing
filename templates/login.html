@@ -1,0 +1,30 @@
+﻿{% extends 'base.html' %}
+{% block title %}Login | GuessIt{% endblock %}
+{% block body_page %}login{% endblock %}
+{% block shell_class %}auth-shell{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-copy">
+    <p class="eyebrow">Secure Session</p>
+    <h1>Sign in and resume your streak.</h1>
+    <p>Password storage uses bcrypt hashes and server sessions, so your game state can survive refreshes and deploy cleanly online.</p>
+    <ul class="feature-list">
+      <li>REST API driven login and logout</li>
+      <li>Leaderboard and profile sync through SQLite</li>
+      <li>Timer, daily challenge, and replay support</li>
+    </ul>
+  </div>
+  <form class="auth-card" id="login-form">
+    <h2>Login</h2>
+    <label>Username<input type="text" name="username" required /></label>
+    <label>Password
+      <div class="password-field">
+        <input type="password" name="password" required minlength="8" />
+        <button class="password-toggle" type="button" data-password-toggle>Show</button>
+      </div>
+    </label>
+    <button class="button primary full" type="submit">Sign In</button>
+    <p class="muted-links"><a href="{{ url_for('register_page') }}">Create account</a> <a href="{{ url_for('forgot_password_page') }}">Forgot password</a></p>
+  </form>
+</section>
+{% endblock %}

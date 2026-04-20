@@ -1,0 +1,44 @@
+﻿{% extends 'base.html' %}
+{% block title %}Profile | GuessIt{% endblock %}
+{% block body_page %}profile{% endblock %}
+{% block content %}
+<section class="grid two-up profile-layout">
+  <article class="panel">
+    <div class="panel-head"><span class="eyebrow">Profile</span><h1>Your dashboard</h1></div>
+    <div class="stats-grid compact">
+      <div class="stat-card"><span>Total Games</span><strong id="profile-total-games">0</strong></div>
+      <div class="stat-card"><span>Wins</span><strong id="profile-wins">0</strong></div>
+      <div class="stat-card"><span>Losses</span><strong id="profile-losses">0</strong></div>
+      <div class="stat-card"><span>Average Attempts</span><strong id="profile-average-attempts">0</strong></div>
+    </div>
+    <div class="stats-grid compact streak-grid">
+      <div class="stat-card"><span>Current Win Streak</span><strong id="profile-current-streak">0</strong></div>
+      <div class="stat-card"><span>Best Win Streak</span><strong id="profile-best-streak">0</strong></div>
+    </div>
+    <div class="subsection">
+      <h3>Best scores by difficulty</h3>
+      <div class="player-cloud" id="profile-best-scores"></div>
+    </div>
+    <div class="subsection">
+      <h3>Achievements</h3>
+      <div class="player-cloud" id="profile-achievements"></div>
+    </div>
+    <div class="subsection">
+      <h3>Recent runs</h3>
+      <div class="recent-list" id="profile-recent-games"></div>
+    </div>
+    <div class="subsection">
+      <a class="button secondary full" href="{{ url_for('history_page') }}">Open Full Match History</a>
+    </div>
+  </article>
+  <article class="panel">
+    <div class="panel-head"><span class="eyebrow">Identity</span><h3>Avatar and roster</h3></div>
+    <div class="avatar-grid" id="avatar-grid"></div>
+    <button class="button primary full" id="save-avatar-button" type="button">Save Avatar</button>
+    <div class="subsection">
+      <h3>Participants</h3>
+      <div class="player-cloud" id="profile-participants"></div>
+    </div>
+  </article>
+</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+﻿{% extends 'base.html' %}
+{% block title %}Training | GuessIt{% endblock %}
+{% block body_page %}training{% endblock %}
+{% block content %}
+<section class="grid single">
+  <article class="panel training-panel">
+    <div class="panel-head" id="how-to-play"><span class="eyebrow">Training</span><h1>Use the hint model, not random luck.</h1></div>
+    <div class="training-grid">
+      <div id="unique-digits">
+        <h3>Opening move</h3>
+        <p>Use a balanced unique-digit opener like <code>428</code> or <code>571</code>. This reveals whether you should keep digits, move them, or clear them entirely.</p>
+      </div>
+      <div id="hint-model">
+        <h3>Mid-game discipline</h3>
+        <p>When you get one exact match, freeze that position and rotate the other digits. When you get only misplaced digits, permute positions before introducing new numbers.</p>
+      </div>
+      <div id="attempt-window">
+        <h3>Timer runs</h3>
+        <p>In timer mode, stop brute-forcing. Make one structural change per guess so each hint removes uncertainty instead of adding it.</p>
+      </div>
+      <div>
+        <h3>Daily challenge</h3>
+        <p>The daily secret is deterministic per date, so every player gets the same puzzle. Your preview hint should shape the first guess.</p>
+      </div>
+    </div>
+  </article>
+</section>
+{% endblock %}

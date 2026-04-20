@@ -1,0 +1,31 @@
+﻿{% extends 'base.html' %}
+{% block title %}Forgot Password | GuessIt{% endblock %}
+{% block body_page %}forgot{% endblock %}
+{% block shell_class %}auth-shell{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-copy">
+    <p class="eyebrow">Password Reset</p>
+    <h1>Reset your password and get back in.</h1>
+    <p>This demo build uses a direct username-based reset flow. Enter the account name, set a new password, and then sign in with the updated credentials.</p>
+  </div>
+  <form class="auth-card" id="forgot-form">
+    <h2>Change Password</h2>
+    <label>Username<input type="text" name="username" required minlength="3" /></label>
+    <label>New Password
+      <div class="password-field">
+        <input type="password" name="password" required minlength="8" />
+        <button class="password-toggle" type="button" data-password-toggle>Show</button>
+      </div>
+    </label>
+    <label>Confirm Password
+      <div class="password-field">
+        <input type="password" name="confirmPassword" required minlength="8" />
+        <button class="password-toggle" type="button" data-password-toggle>Show</button>
+      </div>
+    </label>
+    <button class="button primary full" type="submit">Update Password</button>
+    <p class="muted-links"><a href="{{ url_for('login_page') }}">Back to login</a> <a href="{{ url_for('register_page') }}">Create account</a></p>
+  </form>
+</section>
+{% endblock %}

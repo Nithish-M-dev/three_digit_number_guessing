@@ -1,0 +1,16 @@
+﻿{% extends 'base.html' %}
+{% block title %}Not Found | GuessIt{% endblock %}
+{% block body_page %}missing{% endblock %}
+{% block shell_class %}auth-shell{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-copy">
+    <p class="eyebrow">404</p>
+    <h1>That route does not exist.</h1>
+    <p>The Flask app is now route-driven, so use the navigation or go back to the dashboard.</p>
+  </div>
+  <div class="auth-card static-note">
+    <a class="button primary full" href="{{ url_for('home') if current_user else url_for('login_page') }}">Return</a>
+  </div>
+</section>
+{% endblock %}

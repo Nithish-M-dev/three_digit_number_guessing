@@ -1,0 +1,66 @@
+﻿{% extends 'base.html' %}
+{% block title %}Dashboard | GuessIt{% endblock %}
+{% block body_page %}home{% endblock %}
+{% block content %}
+<section class="classic-hero">
+  <div class="classic-marquee">
+    <div class="classic-logo-wrap">
+      <div class="classic-logo">
+        <span class="classic-logo-main">123</span>
+        <span class="classic-logo-badge">GUESS</span>
+      </div>
+      <div>
+        <p class="eyebrow">Classic Number Challenge</p>
+        <h1>Guess the hidden 3-digit code.</h1>
+      </div>
+    </div>
+    <p class="hero-copy">A classic-style guessing game with modern tracking. Read the hints, narrow the digits, and finish before your attempts run out.</p>
+    <div class="classic-rule-strip">
+      <button class="pill" type="button" data-nav-href="{{ url_for('training_page') }}#unique-digits">3 unique digits</button>
+      <button class="pill" type="button" data-nav-href="{{ url_for('training_page') }}#attempt-window">limited attempts</button>
+      <button class="pill" type="button" data-nav-href="{{ url_for('training_page') }}#hint-model">higher / lower hints</button>
+      <button class="pill" type="button" data-nav-href="{{ url_for('scoreboard_page') }}">leaderboard scoring</button>
+    </div>
+    <div class="hero-actions">
+      <button class="button primary" type="button" data-start-game="classic" data-difficulty="medium">Start Classic Game</button>
+      <button class="button secondary" type="button" data-nav-href="{{ url_for('training_page') }}#how-to-play">How To Play</button>
+    </div>
+  </div>
+  <div class="classic-side-card">
+    <p class="mini-label">Today</p>
+    <h2 id="daily-date">Daily Challenge</h2>
+    <p id="daily-preview">Loading daily hint...</p>
+    <button class="button secondary full" data-start-game="daily" data-difficulty="hard">Play Daily Challenge</button>
+  </div>
+</section>
+
+<section class="grid two-up">
+  <article class="panel">
+    <div class="panel-head"><span class="eyebrow">Game Menu</span><h3>Pick a classic mode</h3></div>
+    <div class="mode-grid">
+      <button class="mode-card" data-start-game="classic" data-difficulty="easy"><strong>Easy</strong><span>12 attempts, steady learning curve</span></button>
+      <button class="mode-card" data-start-game="classic" data-difficulty="medium"><strong>Medium</strong><span>9 attempts, standard classic play</span></button>
+      <button class="mode-card" data-start-game="timer" data-difficulty="hard"><strong>Hard Timer</strong><span>Short clock, sharp decisions</span></button>
+      <button class="mode-card" data-start-game="practice" data-difficulty="easy"><strong>Practice</strong><span>Safe run with full hint guidance</span></button>
+    </div>
+  </article>
+  <article class="panel">
+    <div class="panel-head"><span class="eyebrow">Player Record</span><h3>Classic score board</h3></div>
+    <div class="stats-grid compact">
+      <div class="stat-card"><span>Games</span><strong id="stat-total-games">0</strong></div>
+      <div class="stat-card"><span>Wins</span><strong id="stat-wins">0</strong></div>
+      <div class="stat-card"><span>Losses</span><strong id="stat-losses">0</strong></div>
+      <div class="stat-card"><span>Avg Attempts</span><strong id="stat-average-attempts">0</strong></div>
+    </div>
+    <div class="stats-grid compact streak-grid">
+      <div class="stat-card"><span>Current Streak</span><strong id="stat-current-streak">0</strong></div>
+      <div class="stat-card"><span>Best Streak</span><strong id="stat-best-streak">0</strong></div>
+    </div>
+    <div class="subsection">
+      <h3>Unlocked badges</h3>
+      <div class="player-cloud" id="home-achievements"></div>
+    </div>
+    <div class="recent-list" id="recent-games"></div>
+  </article>
+</section>
+{% endblock %}

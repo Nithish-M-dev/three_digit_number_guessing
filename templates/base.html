@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}GuessIt{% endblock %}</title>
+  <meta name="description" content="Three Digit Number Guessing Game with Flask and SQLite." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body data-page="{% block body_page %}{% endblock %}">
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  {% if current_user %}
+  <header class="site-header">
+    <a href="{{ url_for('home') }}" class="brand">
+      <span class="brand-logo" aria-hidden="true">
+        <span class="brand-logo-top">123</span>
+        <span class="brand-logo-bottom">?</span>
+      </span>
+      <span class="brand-text">Guess<span>It</span></span>
+    </a>
+    <nav class="site-nav">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('game_page') }}">Game</a>
+      <a href="{{ url_for('training_page') }}">Training</a>
+      <a href="{{ url_for('practice_page') }}">Practice</a>
+      <a href="{{ url_for('scoreboard_page') }}">Leaderboard</a>
+      <a href="{{ url_for('history_page') }}">History</a>
+      <a href="{{ url_for('profile_page') }}">Profile</a>
+    </nav>
+    <div class="nav-user">
+      <button class="avatar-badge avatar-trigger" id="nav-avatar-button" type="button" aria-label="Change avatar">
+        <span id="nav-avatar">{{ current_user['avatar'] if current_user else 'Ace' }}</span>
+      </button>
+      <div>
+        <strong id="nav-username">{{ current_user['username'] if current_user else 'Guest' }}</strong>
+        <button class="ghost-button" id="logout-button" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+  <div class="modal-backdrop" id="avatar-modal" hidden>
+    <div class="modal-card">
+      <div class="panel-head split">
+        <div><span class="eyebrow">Identity</span><h3>Change avatar</h3></div>
+        <button class="ghost-button" id="close-avatar-modal" type="button">Close</button>
+      </div>
+      <div class="avatar-grid" id="quick-avatar-grid"></div>
+      <div class="hero-actions">
+        <button class="button primary" id="quick-save-avatar-button" type="button">Save Avatar</button>
+        <a class="button secondary" href="{{ url_for('profile_page') }}">Open Profile</a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <main class="shell {% block shell_class %}{% endblock %}">
+    {% block content %}{% endblock %}
+  </main>
+  <div id="toast-stack" class="toast-stack"></div>
+  <script>
+    window.APP_CONFIG = {
+      user: {{ (current_user and {'username': current_user['username'], 'avatar': current_user['avatar']}) | tojson }},
+      difficulties: {{ difficulty_options | tojson }},
+      avatars: {{ avatar_options | tojson }},
+      modes: {{ mode_labels | tojson }}
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
