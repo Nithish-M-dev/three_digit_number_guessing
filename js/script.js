@@ -13,8 +13,8 @@ const COOKIE_KEYS = {
 };
 
 const API_ENDPOINTS = {
-  participants: '/api/participants',
-  scores: '/api/scores'
+  participants: 'api/participants',
+  scores: 'api/scores'
 };
 
 function loadJSON(key, fallback) {
